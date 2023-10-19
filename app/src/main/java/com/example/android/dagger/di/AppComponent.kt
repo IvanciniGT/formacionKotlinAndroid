@@ -28,7 +28,7 @@ import javax.inject.Singleton
 // Classes annotated with @Singleton will have a unique instance in this Component
 @Singleton
 // Definition of a Dagger component that adds info from the different modules to the graph
-@Component(modules = [StorageModule::class, AppSubcomponents::class])
+@Component(modules = [StorageModule::class, AppSubcomponents::class, PersonasModule::class])
 interface AppComponent {
 
     // Factory to create instances of the AppComponent

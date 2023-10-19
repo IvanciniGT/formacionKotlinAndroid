@@ -31,5 +31,9 @@ open class MyApplication : Application() {
         // Creates an instance of AppComponent using its Factory constructor
         // We pass the applicationContext that will be used as Context in the graph
         return DaggerAppComponent.factory().create(applicationContext)
+            // Inversión de Control!
+        // Dagger CREA TU MI APLICACION !
+        // Yo lo que hago es CONFIGURAR UNA APLICACION
+        // Usan sintaxis DECLARATIVA
     }
 }

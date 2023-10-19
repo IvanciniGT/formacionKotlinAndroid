@@ -16,20 +16,30 @@
 
 package com.example.android.dagger.di
 
+import com.example.android.dagger.services.ServicioUsuarios
 import com.example.android.dagger.storage.SharedPreferencesStorage
 import com.example.android.dagger.storage.Storage
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
+import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 // Tells Dagger this is a Dagger module
 @Module
-abstract class StorageModule {
+class PersonasModule {
 
-    // Makes Dagger provide SharedPreferencesStorage when a Storage type is requested
-    @Binds
-    // En lugar de @Provides
-    abstract fun provideStorage(storage: SharedPreferencesStorage): Storage
-    // Dagger va a implementar esta función... de forma que lo que reciba es lo que devuelva.
-    // En este caso es dagger el que crea la instancia del SharedPreferencesStorage y no yo
-    // Ya que SharedPreferencesStorage también tiene una dependencia que dagger debe inyectar
+    @Provides
+    fun getRetrofit(): Retrofit{
+        return Retrofit.Builder()
+            .baseUrl("http://192.168.2.127:8080/")
+            .addConverterFactory(MoshiConverterFactory.create())
+            .build();
+    }
+
+    @Provides
+    fun provideServicioUsuarios(retrofit: Retrofit): ServicioUsuarios {
+        return retrofit.create(ServicioUsuarios::class.java)
+    }
+
 }
